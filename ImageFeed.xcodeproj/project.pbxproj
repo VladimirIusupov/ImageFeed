@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		E7FBF4932D14257700667AE6 /* Exceptions for "ImageFeed" folder in "ImageFeed" target */ = {
+		E75AA4442D4A391300FE8E55 /* Exceptions for "ImageFeed" folder in "ImageFeed" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -21,10 +21,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E7FBF4832D14257600667AE6 /* ImageFeed */ = {
+		E75AA43B2D4A391200FE8E55 /* ImageFeed */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				E7FBF4932D14257700667AE6 /* Exceptions for "ImageFeed" folder in "ImageFeed" target */,
+				E75AA4442D4A391300FE8E55 /* Exceptions for "ImageFeed" folder in "ImageFeed" target */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";
@@ -45,7 +45,7 @@
 		E7FBF4782D14257600667AE6 = {
 			isa = PBXGroup;
 			children = (
-				E7FBF4832D14257600667AE6 /* ImageFeed */,
+				E75AA43B2D4A391200FE8E55 /* ImageFeed */,
 				E7FBF4822D14257600667AE6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +74,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E7FBF4832D14257600667AE6 /* ImageFeed */,
+				E75AA43B2D4A391200FE8E55 /* ImageFeed */,
 			);
 			name = ImageFeed;
 			packageProductDependencies = (
@@ -256,6 +256,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
