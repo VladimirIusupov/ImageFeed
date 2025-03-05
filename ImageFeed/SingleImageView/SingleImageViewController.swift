@@ -1,45 +1,36 @@
 import SwiftUI
 
 final class SingleImageViewController: UIViewController {
-    
     var image: UIImage? {
         didSet {
             guard isViewLoaded, let image else { return }
+            
             imageView.image = image
             imageView.frame.size = image.size
             rescaleAndCenterImageInScrollView(image: image)
         }
     }
-    
-    //MARK: - IBOutlet
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var imageView: UIImageView!
-    
-    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let image else { return }
+        guard let image = image else { return }
         imageView.image = image
         imageView.frame.size = image.size
         rescaleAndCenterImageInScrollView(image: image)
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
     }
-    
-    //MARK: - IBAction
-    @IBAction private func didTabBackButton() {
+    @IBAction private func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction private func didTapSaveButton() {
+    @IBAction private func didTapShareButton(_ sender: UIButton) {
         guard let image else { return }
         let share = UIActivityViewController(
             activityItems: [image],
             applicationActivities: nil)
         present(share, animated: true, completion: nil)
     }
-    
-    //MARK: - functions private
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale
@@ -57,13 +48,10 @@ final class SingleImageViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
     
-
-    
 }
 
-//MARK: - extensions
 extension SingleImageViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        imageView
+        return imageView
     }
 }
