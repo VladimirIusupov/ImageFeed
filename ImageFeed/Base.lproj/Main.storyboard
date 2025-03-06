@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hYH-Uq-u5b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ahP-2b-diH">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -212,9 +212,65 @@
             </objects>
             <point key="canvasLocation" x="1781.8604651162791" y="-561.37339055793996"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="5ws-mc-2y7">
+            <objects>
+                <viewController id="ahP-2b-diH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DhD-hP-YWi">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="auth_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="D7V-zQ-uh7">
+                                <rect key="frame" x="185" y="436" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="JRR-Bn-Fer"/>
+                                    <constraint firstAttribute="width" constant="60" id="ck7-1S-PoS"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3H2-2i-gcN">
+                                <rect key="frame" x="179" y="766" width="72.666666666666671" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ec9-kE-z2P"/>
+                                    <constraint firstAttribute="width" constant="300" id="k2w-HT-Xuf">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="16"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
+                                </constraints>
+                                <color key="tintColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Войти"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="EfH-Id-i1s"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="3H2-2i-gcN" firstAttribute="leading" secondItem="EfH-Id-i1s" secondAttribute="leading" constant="16" id="C43-Qk-uzi"/>
+                            <constraint firstItem="D7V-zQ-uh7" firstAttribute="centerY" secondItem="EfH-Id-i1s" secondAttribute="centerY" id="FjR-94-XtR"/>
+                            <constraint firstItem="EfH-Id-i1s" firstAttribute="bottom" secondItem="3H2-2i-gcN" secondAttribute="bottom" constant="90" id="hMR-AB-ECZ"/>
+                            <constraint firstItem="D7V-zQ-uh7" firstAttribute="centerX" secondItem="EfH-Id-i1s" secondAttribute="centerX" id="jlI-eP-VDF"/>
+                            <constraint firstItem="EfH-Id-i1s" firstAttribute="trailing" secondItem="3H2-2i-gcN" secondAttribute="trailing" constant="16" id="sA4-A8-5tv"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nrr-rL-r40" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1895" y="-209"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Sharing" width="51" height="51"/>
+        <image name="auth_screen_logo" width="60" height="60"/>
         <image name="back_img" width="24" height="24"/>
         <image name="likebutton_on" width="42" height="42"/>
         <image name="mockImages/0" width="1600" height="1059"/>
