@@ -1,7 +1,7 @@
 import SwiftUI
 
 final class ProfileViewController: UIViewController {
-    //MARK: adding variable values
+    //MARK: - adding variable values
     private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,14 +49,14 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    // MARK: viewDidLoad
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAddSubview()
         setupConstraits()
     }
     
-    //MARK: functions for constraits and addindsubview
+    //MARK: - functions for constraits and addindsubview
     
     private func setupAddSubview() {
         view.addSubview(avatarImageView)
