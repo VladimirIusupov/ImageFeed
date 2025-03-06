@@ -14,7 +14,7 @@ final class ProfileViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Vladimir Iusupov"
-        label.font = UIFont(name: "YSDisplay-Bold", size: 23)
+        label.font = UIFont.boldSystemFont(ofSize: 23)
         label.textColor = .ypWhite
         return label
     }()
@@ -22,9 +22,9 @@ final class ProfileViewController: UIViewController {
     private var systemLoginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "@vladimiriusupov"
-        label.font = UIFont(name: "YSDisplay-Medium", size: 13)
-        label.textColor = .ypWhite
+        label.text = "@vladimir_iusupov"
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = UIColor(named: "YP Grey (iOS)")
         return label
     }()
     
@@ -33,7 +33,7 @@ final class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "iOS Swift developer"
         label.numberOfLines = 0
-        label.font = UIFont(name: "YSDisplay-Medium", size: 13)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .ypWhite
         return label
     }()
