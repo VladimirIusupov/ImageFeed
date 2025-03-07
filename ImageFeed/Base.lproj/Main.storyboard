@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ahP-2b-diH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="b4M-Ql-d4C">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -103,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="863.35877862595419" y="-561.26760563380287"/>
+            <point key="canvasLocation" x="1760.9302325581396" y="-561.37339055793996"/>
         </scene>
         <!--Profile-->
         <scene sceneID="DVd-Ki-rIh">
@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwD-Tf-pr7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-63" y="127"/>
+            <point key="canvasLocation" x="834.41860465116281" y="126.82403433476395"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="fCb-mW-BhV">
@@ -139,7 +139,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p9c-YR-ZSV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-989" y="-208"/>
+            <point key="canvasLocation" x="-90.697674418604649" y="-208.58369098712447"/>
         </scene>
         <!--Single Image View Controller-->
         <scene sceneID="LJj-h6-j5V">
@@ -210,12 +210,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAw-6a-Gx1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1781.8604651162791" y="-561.37339055793996"/>
+            <point key="canvasLocation" x="2680.4651162790697" y="-561.37339055793996"/>
         </scene>
-        <!--View Controller-->
+        <!--Auth View Controller-->
         <scene sceneID="5ws-mc-2y7">
             <objects>
-                <viewController id="ahP-2b-diH" sceneMemberID="viewController">
+                <viewController id="ahP-2b-diH" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DhD-hP-YWi">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,6 +250,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="SWo-EI-TPC" kind="show" identifier="ShowWebView" id="Pl3-iK-h6B"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EfH-Id-i1s"/>
@@ -262,10 +265,64 @@
                             <constraint firstItem="EfH-Id-i1s" firstAttribute="trailing" secondItem="3H2-2i-gcN" secondAttribute="trailing" constant="16" id="sA4-A8-5tv"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="48v-Gk-F7F"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nrr-rL-r40" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1895" y="-209"/>
+            <point key="canvasLocation" x="-960" y="-209"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QXJ-GD-hDn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b4M-Ql-d4C" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AIg-2V-0N5">
+                        <rect key="frame" x="0.0" y="59" width="430" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ahP-2b-diH" kind="relationship" relationship="rootViewController" id="rGf-9t-iAS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xcv-XU-uai" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1877" y="-209"/>
+        </scene>
+        <!--Web View View Controller-->
+        <scene sceneID="TeK-4l-Tcr">
+            <objects>
+                <viewController id="SWo-EI-TPC" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KCU-o4-pOg">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qkv-zd-dqv">
+                                <rect key="frame" x="0.0" y="103" width="430" height="829"/>
+                                <color key="backgroundColor" name="YP White"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ohE-0G-Xf8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qkv-zd-dqv" firstAttribute="top" secondItem="ohE-0G-Xf8" secondAttribute="top" id="Rwr-hR-McI"/>
+                            <constraint firstAttribute="bottom" secondItem="qkv-zd-dqv" secondAttribute="bottom" id="Ux3-g7-NP1"/>
+                            <constraint firstItem="qkv-zd-dqv" firstAttribute="leading" secondItem="KCU-o4-pOg" secondAttribute="leading" id="kdq-VA-hbP"/>
+                            <constraint firstAttribute="trailing" secondItem="qkv-zd-dqv" secondAttribute="trailing" id="o3u-uJ-yEO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="jBJ-V6-er2"/>
+                    <connections>
+                        <outlet property="webView" destination="qkv-zd-dqv" id="LZd-VR-MyI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ODV-lM-k14" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-91" y="-968"/>
         </scene>
     </scenes>
     <resources>
