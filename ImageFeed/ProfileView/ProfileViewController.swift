@@ -2,10 +2,7 @@ import SwiftUI
 
 final class ProfileViewController: UIViewController {
     //MARK: - adding variable values
-<<<<<<< HEAD
     //MARK: - ProfileViewController setup
-=======
->>>>>>> main
     private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,11 +58,7 @@ final class ProfileViewController: UIViewController {
     }
     
     //MARK: - functions for constraits and addindsubview
-<<<<<<< HEAD
     //MARK: - setupAddSudview
-=======
-    
->>>>>>> main
     private func setupAddSubview() {
         view.addSubview(avatarImageView)
         view.addSubview(usernameLabel)

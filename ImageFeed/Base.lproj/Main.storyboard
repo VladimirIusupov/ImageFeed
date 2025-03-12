@@ -124,13 +124,8 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="fCb-mW-BhV">
             <objects>
-<<<<<<< HEAD
                 <tabBarController storyboardIdentifier="TabBarViewController" id="hYH-Uq-u5b" customClass="TabBarViewController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="ou7-HH-bJv">
-=======
-                <tabBarController id="hYH-Uq-u5b" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" itemPositioning="fill" id="ou7-HH-bJv">
->>>>>>> main
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="YP Black"/>
