@@ -1,7 +1,8 @@
 import SwiftUI
 
 final class ProfileViewController: UIViewController {
-    //MARK: adding variable values
+    //MARK: - adding variable values
+    //MARK: - ProfileViewController setup
     private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,15 +50,15 @@ final class ProfileViewController: UIViewController {
         return button
     }()
     
-    // MARK: viewDidLoad
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAddSubview()
         setupConstraits()
     }
     
-    //MARK: functions for constraits and addindsubview
-    
+    //MARK: - functions for constraits and addindsubview
+    //MARK: - setupAddSudview
     private func setupAddSubview() {
         view.addSubview(avatarImageView)
         view.addSubview(usernameLabel)
@@ -65,7 +66,7 @@ final class ProfileViewController: UIViewController {
         view.addSubview(userInfoLabel)
         view.addSubview(logoutButton)
     }
-    
+    //MARK: - setupConstraits
     private func setupConstraits() {
         let avatarImageViewConstraints = [
             avatarImageView.widthAnchor.constraint(equalToConstant: 70),
@@ -98,7 +99,8 @@ final class ProfileViewController: UIViewController {
             logoutButtonConstraints
         )
     }
-    
+    //MARK: - objc
+    //MARK: - func didTapLogoutButton
     @objc
     private func didTapLogoutButton() {
         print("Logout button tapped")
