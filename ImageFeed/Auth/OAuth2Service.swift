@@ -1,65 +1,54 @@
-import SwiftUI
+import Foundation
 
 final class OAuth2Service {
-    
-    // MARK: - Static properties
-    
     static let shared = OAuth2Service()
-    
     private init() {}
-    
-    // MARK: - Private functions
-    
-    private func createURLRequest(code: String) -> URLRequest {
-        guard var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token") else {
-            print("Ошибка createURLRequest")
-            return URLRequest(url: Constants.defaultBaseURL!)
+    private enum NetworkError: Error {
+        case codeError
+        case tokenError
+    }
+    private func makeOAuthTokenRequest(code: String) -> URLRequest? {
+        let baseURL = URL(string: "https://unsplash.com")
+        guard
+            let url = URL(string: "/oauth/token"
+                          + "?client_id=\(Constants.accessKey)"
+                          + "&&client_secret=\(Constants.secretKey)"
+                          + "&&redirect_uri=\(Constants.redirectURI)"
+                          + "&&code=\(code)"
+                          + "&&grant_type=authorization_code",
+                          relativeTo: baseURL)
+        else {
+            print("OAuth2Service url - error")
+            return nil
         }
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: Constants.accessKey),
-            URLQueryItem(name: "client_secret", value: Constants.secretKey),
-            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
-            URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code")
-        ]
-        
-        guard let url = urlComponents.url else {
-            print("createURLRequest Error")
-            return URLRequest(url: Constants.defaultBaseURL!)
-        }
-        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         return request
     }
-    
-    // MARK: - Internal functions
-    
-    func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let request = createURLRequest(code: code)
+    func fetchOAuthToken(code: String, handler: @escaping (Result<String, Error>) -> Void) {
+        guard let request = makeOAuthTokenRequest(code: code) else {
+            print("OAuth2Service request - error")
+            return
+        }
+        
         let task = URLSession.shared.data(for: request) { result in
             switch result {
-            case .failure(let error):
-                switch error {
-                case NetworkError.urlSessionError:
-                    print("Netwotk error")
-                case NetworkError.httpStatusCode(let status):
-                    print("Error from service Unsplash: \(status)")
-                case NetworkError.urlRequestError(let requestError):
-                    print("Network error: \(requestError)")
-                default:
-                    print("Unknown error")
-                }
-                completion(.failure(error))
             case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
-                    let token = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                    completion(.success(token.accessToken))
-                    print("Successfully fetched token:\(token)")
+                    let token = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+                    guard let token = token.accessToken else {
+                        handler(.failure(NetworkError.tokenError))
+                        return
+                    }
+                    handler(.success(token))
                 } catch {
-                    completion(.failure(error))
-                    print("Decode error from OAuthTokenResponseBody")
+                    handler(.failure(error))
                 }
+            case .failure(let error):
+                print("Error: \(error)")
+                handler(.failure(error))
             }
         }
         task.resume()

@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" userLabel="Images List" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="849"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="873"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="q4L-cd-oak">
-                                <rect key="frame" x="0.0" y="0.0" width="430" height="849"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="873"/>
                                 <color key="backgroundColor" name="YP Black"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagesListCell" rowHeight="307" id="cn8-gh-kzl" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
@@ -110,7 +110,7 @@
             <objects>
                 <viewController id="g8y-c5-uKC" userLabel="Profile" customClass="ProfileViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CbP-3F-jRY">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="849"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="873"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Apu-v2-JZT"/>
                         <color key="backgroundColor" name="YP Black"/>
@@ -177,12 +177,13 @@
                                     <action selector="didTapShareButton:" destination="69A-Ij-tMM" eventType="touchUpInside" id="Vcu-pa-HyX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWJ-d5-hjr" userLabel="BackButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TWJ-d5-hjr" userLabel="BackButton">
                                 <rect key="frame" x="9" y="9" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="fCa-cC-mzR"/>
                                     <constraint firstAttribute="height" constant="48" id="qRa-dT-cKY"/>
                                 </constraints>
+                                <color key="tintColor" name="YP White"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="back_img"/>
                                 <connections>
@@ -191,7 +192,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nC2-Ao-fUe"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="nC2-Ao-fUe" firstAttribute="trailing" secondItem="ljL-8a-jVP" secondAttribute="trailing" id="JAb-Qm-crn"/>
                             <constraint firstItem="ljL-8a-jVP" firstAttribute="leading" secondItem="nC2-Ao-fUe" secondAttribute="leading" id="TdD-S5-2ma"/>
@@ -292,7 +293,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <segue destination="b4M-Ql-d4C" kind="presentation" identifier="showAuthenticationScreen" modalPresentationStyle="fullScreen" id="BMz-TC-vyB"/>
+                        <segue destination="b4M-Ql-d4C" kind="presentation" identifier="showAuthorization" modalPresentationStyle="fullScreen" id="BMz-TC-vyB"/>
+                        <segue destination="hYH-Uq-u5b" kind="presentation" identifier="showGallery" id="neC-f8-bwS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qkB-OA-v1l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -353,8 +355,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="jBJ-V6-er2"/>
                     <connections>
-                        <outlet property="progressView" destination="NyD-y3-EpG" id="srV-lK-ibi"/>
-                        <outlet property="webView" destination="qkv-zd-dqv" id="msZ-07-cGI"/>
+                        <outlet property="progressView" destination="NyD-y3-EpG" id="Hw0-Rz-R7q"/>
+                        <outlet property="webView" destination="qkv-zd-dqv" id="tUa-Y2-JOz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ODV-lM-k14" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -366,7 +368,7 @@
         <image name="Sharing" width="51" height="51"/>
         <image name="Vector" width="75" height="78"/>
         <image name="auth_screen_logo" width="60" height="60"/>
-        <image name="back_img" width="24" height="24"/>
+        <image name="back_img" width="9" height="16"/>
         <image name="likebutton_on" width="42" height="42"/>
         <image name="mockImages/0" width="1600" height="1059"/>
         <image name="tab_editorial_active" width="20" height="22"/>

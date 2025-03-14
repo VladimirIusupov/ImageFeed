@@ -1,4 +1,4 @@
-import SwiftUI
+import UIKit
 
 final class ProfileViewController: UIViewController {
     //MARK: - adding variable values
@@ -10,7 +10,6 @@ final class ProfileViewController: UIViewController {
         imageView.layer.cornerRadius = 35
         return imageView
     }()
-    
     private var usernameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -19,7 +18,6 @@ final class ProfileViewController: UIViewController {
         label.textColor = .ypWhite
         return label
     }()
-    
     private var systemLoginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +26,6 @@ final class ProfileViewController: UIViewController {
         label.textColor = UIColor(named: "YP Grey (iOS)")
         return label
     }()
-    
     private var userInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +35,6 @@ final class ProfileViewController: UIViewController {
         label.textColor = .ypWhite
         return label
     }()
-    
     private lazy var logoutButton: UIButton = {
         let button = UIButton.systemButton(
             with: UIImage(named: "Exit")!,
@@ -56,7 +52,6 @@ final class ProfileViewController: UIViewController {
         setupAddSubview()
         setupConstraits()
     }
-    
     //MARK: - functions for constraits and addindsubview
     //MARK: - setupAddSudview
     private func setupAddSubview() {

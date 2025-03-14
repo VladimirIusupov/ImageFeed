@@ -1,4 +1,4 @@
-import SwiftUI
+import UIKit
 
 enum Constants {
     static let accessKey = "OJcrfLnPv4Wxxd8lEFsrcRD2gRxacXqZVnOBio1nJlg"
@@ -11,5 +11,8 @@ enum Constants {
 
 enum Identifiers {
     static let authWebScreenIdentifier = "ShowWebView"
-    static let showAuthenticationScreenSegueIdentifier = "showAuthenticationScreen"
+    static let tokenKey = "BearerToken"
+    static let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    static let showGallerySegueId = "showGallery"
+    static let showAuthSegueId = "showAuthorization"
 }

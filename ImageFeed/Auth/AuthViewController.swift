@@ -1,69 +1,42 @@
-import SwiftUI
+import UIKit
 
 final class AuthViewController: UIViewController {
     
-    // MARK: - Private properties
+    private let identifier = Identifiers.authWebScreenIdentifier
     private let oauth2Service = OAuth2Service.shared
-    private let tokenStorage = OAuth2TokenStorage()
-    // MARK: - Internal properties
+    private let oauth2TokenStorage = OAuth2TokenStorage()
     weak var delegate: AuthViewControllerDelegate?
-    let idSegue = Identifiers.authWebScreenIdentifier
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureBackButton()
-    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == idSegue {
+        if segue.identifier == identifier {
             guard
                 let webViewViewController = segue.destination as? WebViewViewController
-            else {
-                assertionFailure("Failed to prepare for \(idSegue)")
-                return
-            }
+            else { fatalError("Failed to prepare for \(identifier)") }
             webViewViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
         }
     }
-    
-    // MARK: - Private functions
-    
-    private func configureBackButton() {
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "back_img")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "back_img")
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black")
-    }
 }
 
-// MARK: - WebViewViewControllerDelegate
-
 extension AuthViewController: WebViewViewControllerDelegate {
+    
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        vc.dismiss(animated: true)
+        
         oauth2Service.fetchOAuthToken(code: code) { [weak self] result in
+            guard let self else { return }
+            self.navigationController?.popViewController(animated: true)
             switch result {
+            case .success(let bearerToken):
+                self.oauth2TokenStorage.token = bearerToken
+                delegate?.didAuthenticate(self)
             case .failure(let error):
-                switch error {
-                case NetworkError.urlSessionError:
-                    print("Network error")
-                case NetworkError.httpStatusCode(let status):
-                    print("Unsplash service error: \(status)")
-                case NetworkError.urlRequestError(let requestError):
-                    print("Nerwork error: \(requestError)")
-                default:
-                    print("Unknown error")
-                }
-            case .success(let data):
-                guard let self = self else { return }
-                self.delegate?.didAuthenticate(self)
-                self.tokenStorage.token = data
+                print("failure with error - \(error)")
             }
         }
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
-        // self.navigationController?.popViewController(animated: true)
-        vc.dismiss(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }

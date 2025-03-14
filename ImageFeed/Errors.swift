@@ -1,4 +1,4 @@
-import SwiftUI
+import UIKit
 
 enum OAuth2Error: Error {
     case noData
@@ -9,6 +9,7 @@ enum NetworkError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
+    case tokenError
 }
 
 enum FetchOAuthError: Error {
