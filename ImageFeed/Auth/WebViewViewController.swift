@@ -1,12 +1,19 @@
 import UIKit
-@preconcurrency import WebKit
+import WebKit
+
+protocol WebViewControllerDelegate: AnyObject {
+    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
+    func webViewViewControllerDidCancel(_ vc: WebViewViewController)
+}
 
 final class WebViewViewController: UIViewController {
+    
     // MARK: - IB Outlets
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private var progressView: UIProgressView!
+    @IBOutlet var backButton: UIButton!
     
-    weak var delegate: WebViewViewControllerDelegate?
+    weak var delegate: WebViewControllerDelegate?
     
     // MARK: - Overrides Methods
     override func viewDidLoad() {
@@ -14,7 +21,6 @@ final class WebViewViewController: UIViewController {
         
         webView.navigationDelegate = self
         loadAuthView()
-        configureBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,21 +52,19 @@ final class WebViewViewController: UIViewController {
         }
     }
     
+    @IBAction func tapBackButton(_ sender: Any) {
+        guard let delegate else {return}
+        delegate.webViewViewControllerDidCancel(self)
+    }
+    
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
     
-    private func configureBackButton() {
-        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        backButton.image = UIImage(named: "chevron_backward_black")?.withRenderingMode(.alwaysOriginal)
-        navigationItem.leftBarButtonItem = backButton
-        navigationController?.navigationBar.tintColor = UIColor(named: "YP Black")
-    }
-    
     private func loadAuthView() {
         
-        guard var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLStringIdentifier) else {
+          guard var urlComponents = URLComponents(string: Constants.unsplashAuthorizeURLString) else {
               print("urlComponents is failed")
               return
           }

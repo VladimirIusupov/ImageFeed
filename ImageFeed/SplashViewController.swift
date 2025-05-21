@@ -2,9 +2,9 @@ import UIKit
 
 final class SplashViewController: UIViewController {
     
-    private let showAuthenticationScreenSegueIdentifier = Identifiers.showAuthenticationScreenSegueIdentifier
-    private let showGallerySegueId = Identifiers.showGallerySegueId
-    private let showAuthSegueId = Identifiers.showAuthSegueId
+    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private let showGallerySegueId = "showGallery"
+    private let showAuthSegueId = "showAuthorization"
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     
@@ -16,13 +16,16 @@ final class SplashViewController: UIViewController {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
     }
+    
     private func showNextScreen() {
         if let token = oauth2TokenStorage.token, !token.isEmpty {
+            print("gallery showed")
             performSegue(withIdentifier: showGallerySegueId, sender: self)
         } else {
             performSegue(withIdentifier: showAuthSegueId, sender: self)
         }
     }
+    
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
@@ -30,7 +33,9 @@ final class SplashViewController: UIViewController {
         window.rootViewController = tabBarController
     }
 }
+
 extension SplashViewController: AuthViewControllerDelegate {
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showAuthSegueId {
             let navigationController = segue.destination as? UINavigationController
@@ -44,6 +49,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             super.prepare(for: segue, sender: sender)
         }
     }
+    
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
         switchToTabBarController()

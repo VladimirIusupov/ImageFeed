@@ -1,8 +1,16 @@
-import UIKit
+import Foundation
+
 final class OAuth2TokenStorage {
-    // MARK: - Internal properties
     var token: String? {
-        get { UserDefaults.standard.string(forKey: Identifiers.tokenKey) }
-        set { UserDefaults.standard.set(newValue, forKey: Identifiers.tokenKey) }
+        get {
+            guard let token = UserDefaults.standard.string(forKey: Identifiers.tokenKey) else {
+                print("Bearer token isn't string")
+                return UserDefaults.standard.string(forKey: Identifiers.tokenKey)
+            }
+            return token
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Identifiers.tokenKey)
+        }
     }
 }
