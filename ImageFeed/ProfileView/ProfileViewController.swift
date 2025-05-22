@@ -36,13 +36,16 @@ final class ProfileViewController: UIViewController {
         return label
     }()
     private lazy var logoutButton: UIButton = {
-        let button = UIButton.systemButton(
-            with: UIImage(named: "Exit")!,
-            target: self,
-            action: #selector(didTapLogoutButton)
-        )
+        let button = UIButton()
+        if let exitImage = UIImage(named: "Exit") {
+            button.setImage(exitImage, for: .normal)
+        } else {
+            button.setTitle("Exit", for: .normal)
+            print("Warning: Exit image not found")
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .ypRed
+        button.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
         return button
     }()
     

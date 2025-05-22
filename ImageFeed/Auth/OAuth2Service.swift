@@ -44,6 +44,7 @@ final class OAuth2Service {
                     }
                     handler(.success(token))
                 } catch {
+                    print("Decode error from OAuthTokenResponseBody: \(error)")
                     handler(.failure(error))
                 }
             case .failure(let error):
