@@ -57,11 +57,24 @@ final class OAuth2Service {
             case .success(let data):
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
+<<<<<<< HEAD
                 guard let token = data.accessToken
                 else {
                     handler(.failure(AuthServiceError.tokenError))
                     print("Token not found")
                     return
+=======
+                do {
+                    let token = try decoder.decode(OAuthTokenResponseBody.self, from: data)
+                    guard let token = token.accessToken else {
+                        handler(.failure(NetworkError.tokenError))
+                        return
+                    }
+                    handler(.success(token))
+                } catch {
+                    print("Decode error from OAuthTokenResponseBody: \(error)")
+                    handler(.failure(error))
+>>>>>>> e2a12e2 (final fixes with review secend try)
                 }
                 handler(.success(token))
             case .failure(let error):
