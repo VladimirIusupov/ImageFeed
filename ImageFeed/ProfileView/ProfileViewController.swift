@@ -1,7 +1,8 @@
-import SwiftUI
+import UIKit
 
 final class ProfileViewController: UIViewController {
     //MARK: - adding variable values
+    //MARK: - ProfileViewController setup
     private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -9,7 +10,6 @@ final class ProfileViewController: UIViewController {
         imageView.layer.cornerRadius = 35
         return imageView
     }()
-    
     private var usernameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,6 @@ final class ProfileViewController: UIViewController {
         label.textColor = .ypWhite
         return label
     }()
-    
     private var systemLoginLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +26,6 @@ final class ProfileViewController: UIViewController {
         label.textColor = UIColor(named: "YP Grey (iOS)")
         return label
     }()
-    
     private var userInfoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,15 +35,17 @@ final class ProfileViewController: UIViewController {
         label.textColor = .ypWhite
         return label
     }()
-    
     private lazy var logoutButton: UIButton = {
-        let button = UIButton.systemButton(
-            with: UIImage(named: "Exit")!,
-            target: self,
-            action: #selector(didTapLogoutButton)
-        )
+        let button = UIButton()
+        if let exitImage = UIImage(named: "Exit") {
+            button.setImage(exitImage, for: .normal)
+        } else {
+            button.setTitle("Exit", for: .normal)
+            print("Warning: Exit image not found")
+        }
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .ypRed
+        button.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
         return button
     }()
     
@@ -55,9 +55,8 @@ final class ProfileViewController: UIViewController {
         setupAddSubview()
         setupConstraits()
     }
-    
     //MARK: - functions for constraits and addindsubview
-    
+    //MARK: - setupAddSudview
     private func setupAddSubview() {
         view.addSubview(avatarImageView)
         view.addSubview(usernameLabel)
@@ -65,7 +64,7 @@ final class ProfileViewController: UIViewController {
         view.addSubview(userInfoLabel)
         view.addSubview(logoutButton)
     }
-    
+    //MARK: - setupConstraits
     private func setupConstraits() {
         let avatarImageViewConstraints = [
             avatarImageView.widthAnchor.constraint(equalToConstant: 70),
@@ -98,7 +97,8 @@ final class ProfileViewController: UIViewController {
             logoutButtonConstraints
         )
     }
-    
+    //MARK: - objc
+    //MARK: - func didTapLogoutButton
     @objc
     private func didTapLogoutButton() {
         print("Logout button tapped")

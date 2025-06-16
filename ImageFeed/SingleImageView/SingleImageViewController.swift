@@ -1,4 +1,4 @@
-import SwiftUI
+import UIKit
 
 final class SingleImageViewController: UIViewController {
     var image: UIImage? {
@@ -47,7 +47,6 @@ final class SingleImageViewController: UIViewController {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
-    
 }
 
 extension SingleImageViewController: UIScrollViewDelegate {
