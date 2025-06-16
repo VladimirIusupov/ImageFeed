@@ -1,5 +1,5 @@
 import UIKit
-import WebKit
+@preconcurrency import WebKit
 
 protocol WebViewControllerDelegate: AnyObject {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String)
@@ -18,9 +18,11 @@ final class WebViewViewController: UIViewController {
     // MARK: - Overrides Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        backButton.tintColor = UIColor(named: "YP Black")
         
         webView.navigationDelegate = self
         loadAuthView()
+        updateProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +55,9 @@ final class WebViewViewController: UIViewController {
     }
     
     @IBAction func tapBackButton(_ sender: Any) {
-        guard let delegate else {return}
+        guard let delegate else {
+            print("Not working delegate")
+            return}
         delegate.webViewViewControllerDidCancel(self)
     }
     
@@ -118,3 +122,4 @@ extension WebViewViewController: WKNavigationDelegate {
     }
     
 }
+

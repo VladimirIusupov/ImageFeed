@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 
 protocol AuthViewControllerDelegate: NSObject {
     func didAuthenticate(_ vc: AuthViewController)
@@ -21,26 +22,52 @@ final class AuthViewController: UIViewController {
             super.prepare(for: segue, sender: sender)
         }
     }
+    private func showAuthErrorAlert() {
+            let alert = UIAlertController(
+                title: "Неизвестная ошибка",
+                message: "Прости, но что-то пошло не так и мне не удалось войти в систему",
+                preferredStyle: .alert
+            )
+            
+            let action = UIAlertAction(title: "Хорошо, попробуем еще раз", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(action)
+            
+            present(alert, animated: true)
+        }
 }
+
 
 extension AuthViewController: WebViewControllerDelegate {
     
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        
-        oauth2Service.fetchOAuthToken(code: code) { [weak self] result in
-            guard let self else { return }
-            self.navigationController?.popViewController(animated: true)
+        vc.dismiss(animated: true)
+        UIBlockingProgressHUD.show()
+        fetchOAuthToken(code) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            guard let self = self else { return }
+            
             switch result {
-            case .success(let bearerToken):
-                self.oauth2TokenStorage.token = bearerToken
-                delegate?.didAuthenticate(self)
-            case .failure(let error):
-                print("failure with error - \(error)")
+            case .success(let token):
+                oauth2TokenStorage.token = token
+                self.delegate?.didAuthenticate(self)
+            case .failure:
+               
+                self.showAuthErrorAlert()
             }
         }
+        
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true, completion: nil)
+    }
+}
+extension AuthViewController {
+    private func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        oauth2Service.fetchOAuthToken(code) { result in
+            completion(result)
+        }
     }
 }
