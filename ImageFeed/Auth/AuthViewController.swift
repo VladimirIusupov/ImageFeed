@@ -24,12 +24,12 @@ final class AuthViewController: UIViewController {
     }
     private func showAuthErrorAlert() {
             let alert = UIAlertController(
-                title: "Неизвестная ошибка",
-                message: "Прости, но что-то пошло не так и мне не удалось войти в систему",
+                title: "Что-то пошло не так(",
+                message: "Не удалось войти в систему",
                 preferredStyle: .alert
             )
             
-            let action = UIAlertAction(title: "Хорошо, попробуем еще раз", style: .default) { _ in
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
                 self.dismiss(animated: true)
             }
             alert.addAction(action)

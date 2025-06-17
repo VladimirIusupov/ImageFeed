@@ -93,7 +93,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     private func switchToAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         guard let authViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else {
-            assertionFailure("AuthViewController не найден в сториборде")
+            assertionFailure("AuthViewController did not load on storyboard")
             return
         }
         authViewController.delegate = self
@@ -106,7 +106,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         profileService.fetchProfile(token) { [weak self] result in
             UIBlockingProgressHUD.dismiss()
             guard let self = self else {
-                print("функция fetchProfile не работает ")
+                print("fetchProfile dont work")
                 return }
             switch result {
             case .success(let profile):
