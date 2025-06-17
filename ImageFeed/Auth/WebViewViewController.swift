@@ -11,15 +11,13 @@ final class WebViewViewController: UIViewController {
     // MARK: - IB Outlets
     @IBOutlet private var webView: WKWebView!
     @IBOutlet private var progressView: UIProgressView!
-    @IBOutlet var backButton: UIButton!
+    @IBOutlet weak var backButton: UINavigationItem!
     
     weak var delegate: WebViewControllerDelegate?
     
     // MARK: - Overrides Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        backButton.tintColor = UIColor(named: "YP Black")
-        
         webView.navigationDelegate = self
         loadAuthView()
         updateProgress()

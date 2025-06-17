@@ -198,7 +198,7 @@
         <!--Auth View Controller-->
         <scene sceneID="5ws-mc-2y7">
             <objects>
-                <viewController storyboardIdentifier="AuthViewController" id="ahP-2b-diH" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" interactionActivityTrackingBaseName="Auth" id="ahP-2b-diH" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DhD-hP-YWi">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -289,6 +289,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="jBJ-V6-er2"/>
                     <connections>
+                        <outlet property="backButton" destination="jBJ-V6-er2" id="h5n-w0-Tt1"/>
                         <outlet property="progressView" destination="NyD-y3-EpG" id="WSr-ef-nAZ"/>
                         <outlet property="webView" destination="qkv-zd-dqv" id="OXg-YX-8Wz"/>
                     </connections>

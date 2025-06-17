@@ -6,7 +6,7 @@ final class ProfileImageService {
     static let didChangeNotification = Notification.Name("ProfileImageProviderDidChange")
     // MARK: - Private Properties
     private let urlSession = URLSession.shared
-    private var task: URLSessionTask? // для того чтобы смотреть выполняется ли сейчас поход в сеть за токеном
+    private var task: URLSessionTask?
     private let storage = OAuth2TokenStorage()
     private let tokenStorage = OAuth2TokenStorage()
     private(set) var avatarURL: String?
@@ -27,11 +27,6 @@ final class ProfileImageService {
     
     func fetchProfileImageURL(username: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
-        /*if task != nil {
-            print("The request is already in progress")
-            completion(.failure(ProfileServiceError.invalidRequest))
-            return
-        }*/
         if let existingTask = task {
             print("The request is already in progress")
             completion(.failure(AuthServiceError.invalidRequest))
