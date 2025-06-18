@@ -1,46 +1,14 @@
 import Foundation
 
-struct ProfileResult: Decodable {
-    
-    var username: String
-    var firstName: String
-    var lastName: String?
-    var bio: String?
-    
-}
-
-struct Profile {
-    
-    let username: String
-    let name: String
-    let loginName: String?
-    let bio: String?
-    
-}
-
 final class ProfileService {
     private var storage = OAuth2TokenStorage()
     static let shared = ProfileService()
+    private let urlSession = URLSession.shared
     private init() {}
-    
     private let decoder = JSONDecoder()
+    private var task: URLSessionTask?
     private(set) var profile: Profile?
-    
-    private enum RequestError: Error {
-        case invalidRequest
-        case invalidBaseURL
-        case invalidURLComponents
-        case badRequest
-    }
-    
-    private enum ParsingJSONServiceError: Error { 
-        case decodeError
-        case invalidJson
-        case incorrectObject
-    }
-    
-    
-    
+
     private func makeProfileRequest(token: String) -> URLRequest? {
         guard let baseUrl = URL(string: Constants.defaultBaseURL?.absoluteString ?? "") else {
             preconditionFailure("Invalid base URL \(ErrorsList.RequestError.invalidBaseURL)")
@@ -80,14 +48,15 @@ final class ProfileService {
                                       bio: response.bio ?? "")
                 self.profile = profile
                 completion(.success(profile))
-            
-        case .failure(let error):
-            print("Network error: \(error)")
-            completion(.failure(error))
+                
+            case .failure(let error):
+                print("Network error: \(error)")
+                completion(.failure(error))
+            }
         }
+        task.resume()
     }
-    task.resume()
-}
-
+    
+    func deleteProfile() {profile = nil}
 }
 
