@@ -33,7 +33,8 @@ final class ProfileViewController: UIViewController {
             let url = URL(string: profileImageURL)
         else {
             print("Could not makeProfileRequest")
-            return }
+            return
+        }
         let placeholder = UIImage(named: "avatar") ?? UIImage(systemName: "person.crop.circle.fill")
         let processor = RoundCornerImageProcessor(cornerRadius: 20)
         avatarImageView.kf.setImage(with: url, placeholder: placeholder, options: [.processor(processor)])
@@ -44,6 +45,7 @@ final class ProfileViewController: UIViewController {
         let loginVC = storyboard.instantiateViewController(withIdentifier: "AuthViewController")
         UIApplication.shared.windows.first?.rootViewController = loginVC
         //TODO: доделать функцию logout, есть проблемы со входом при выходе из профиля
+
     }
     
     // MARK: - Action

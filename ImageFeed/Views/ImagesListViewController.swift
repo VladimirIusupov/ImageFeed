@@ -16,7 +16,6 @@ final class ImagesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 
@@ -82,10 +81,7 @@ extension ImagesListViewController: UITableViewDelegate {
             print("tableView not working")
             return 0
         }
-<<<<<<< HEAD:ImageFeed/Views/ImagesListViewController.swift
-=======
         
->>>>>>> db53a05 (problems with commmit):ImageFeed/ImageList/ImagesListViewController.swift
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
         let imageWidth = image.size.width

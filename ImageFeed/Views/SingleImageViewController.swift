@@ -3,11 +3,7 @@ import UIKit
 final class SingleImageViewController: UIViewController {
     var image: UIImage? {
         didSet {
-<<<<<<< HEAD:ImageFeed/Views/SingleImageViewController.swift
             guard isViewLoaded else { return }
-=======
-            guard isViewLoaded else { return } // проверяем был ли раньше загружен view
->>>>>>> db53a05 (problems with commmit):ImageFeed/SingleImageView/SingleImageViewController.swift
             imageView.image = image
             if let image = image {
                 rescaleAndCenterImageInScrollView(image: image)
@@ -65,22 +61,13 @@ extension SingleImageViewController: UIScrollViewDelegate {
         self.imageView
     }
     
-<<<<<<< HEAD:ImageFeed/Views/SingleImageViewController.swift
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-=======
-    func scrollViewDidZoom(_ scrollView: UIScrollView) { // вычисляем внутренние отступы, чтобы оцентровать картинку после зумирования
->>>>>>> db53a05 (problems with commmit):ImageFeed/SingleImageView/SingleImageViewController.swift
         let boundSize = scrollView.bounds.size
         let frameToCenter = imageView.frame
         let contentInsetX = max((boundSize.width - frameToCenter.size.width) * 0.5, 0)
         let contentInsetY = max((boundSize.height - frameToCenter.size.height) * 0.5, 0)
-<<<<<<< HEAD:ImageFeed/Views/SingleImageViewController.swift
         scrollView.contentInset = UIEdgeInsets(top: contentInsetY, left: contentInsetX, bottom: contentInsetY, right: contentInsetX)
         scrollView.contentInsetAdjustmentBehavior = .automatic
-=======
-        scrollView.contentInset = UIEdgeInsets(top: contentInsetY, left: contentInsetX, bottom: contentInsetY, right: contentInsetX) // устанавливаем внутренние отступы
-        scrollView.contentInsetAdjustmentBehavior = .automatic // устанавливаем отскок содержимого внутри отступов
->>>>>>> db53a05 (problems with commmit):ImageFeed/SingleImageView/SingleImageViewController.swift
     }
 }
 

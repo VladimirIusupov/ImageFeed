@@ -49,11 +49,7 @@ final class ProfileService {
                                 "/me",
                             relativeTo: baseUrl
         ) else {
-<<<<<<< HEAD
             print("makeProfileRequest don't work")
-=======
-            print("нельзя создать makeProfileRequest")
->>>>>>> db53a05 (problems with commmit)
             preconditionFailure("Invalid URL Components \(ErrorsList.RequestError.invalidURLComponents)")
         }
         
@@ -67,11 +63,7 @@ final class ProfileService {
         assert(Thread.isMainThread)
         
         guard let request = makeProfileRequest(token: token) else {
-<<<<<<< HEAD
             print("makeProfileRequest don't work")
-=======
-            print("нельзя создать makeProfileRequest")
->>>>>>> db53a05 (problems with commmit)
             return completion(.failure(RequestError.invalidRequest))
             
         }
