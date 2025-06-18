@@ -62,7 +62,7 @@ final class OAuth2Service {
                 guard let token = data.accessToken
                 else {
                     handler(.failure(AuthServiceError.tokenError))
-                    print("token not found")
+                    print("Токен не найден")
                     return
                 }
                 handler(.success(token))
@@ -74,7 +74,6 @@ final class OAuth2Service {
         task.resume()
     }
 }
-
 private func makeOAuthTokenRequest(code: String) -> URLRequest? {
     let baseURL = URL(string: "https://unsplash.com")
     guard
