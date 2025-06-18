@@ -1,6 +1,11 @@
 import UIKit
+<<<<<<< HEAD
 
 final class OAuth2Service {
+=======
+final class OAuth2Service {
+    // MARK: - Public Properties
+>>>>>>> db53a05 (problems with commmit)
     var authToken: String? {
         get {
             OAuth2TokenStorage().token
@@ -10,6 +15,10 @@ final class OAuth2Service {
         }
     }
     static let shared = OAuth2Service()
+<<<<<<< HEAD
+=======
+    // MARK: - Private Properties
+>>>>>>> db53a05 (problems with commmit)
     private var task: URLSessionTask?
     private var lastCode: String?
     private let decoder = JSONDecoder()
@@ -46,7 +55,11 @@ final class OAuth2Service {
         guard
             let request = makeOAuthTokenRequest(code: code)
         else {
+<<<<<<< HEAD
             print("Request didn't founded or din't created")
+=======
+            print("Didn't find request")
+>>>>>>> db53a05 (problems with commmit)
             handler(.failure(AuthServiceError.invalidRequest))
             return
         }
@@ -57,6 +70,7 @@ final class OAuth2Service {
             case .success(let data):
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
+<<<<<<< HEAD
 <<<<<<< HEAD
                 guard let token = data.accessToken
                 else {
@@ -75,6 +89,13 @@ final class OAuth2Service {
                     print("Decode error from OAuthTokenResponseBody: \(error)")
                     handler(.failure(error))
 >>>>>>> e2a12e2 (final fixes with review secend try)
+=======
+                guard let token = data.accessToken
+                else {
+                    handler(.failure(AuthServiceError.tokenError))
+                    print("token not found")
+                    return
+>>>>>>> db53a05 (problems with commmit)
                 }
                 handler(.success(token))
             case .failure(let error):
@@ -83,7 +104,6 @@ final class OAuth2Service {
             }
         }
         task.resume()
-        print("fetchOAuthToken Success")
     }
 }
 

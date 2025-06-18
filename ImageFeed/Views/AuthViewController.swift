@@ -23,6 +23,7 @@ final class AuthViewController: UIViewController {
         }
     }
     private func showAuthErrorAlert() {
+<<<<<<< HEAD:ImageFeed/Views/AuthViewController.swift
         let alert = UIAlertController(
             title: "Что-то пошло не так(",
             message: "Не удалось войти в систему",
@@ -36,6 +37,21 @@ final class AuthViewController: UIViewController {
         
         present(alert, animated: true)
     }
+=======
+            let alert = UIAlertController(
+                title: "Неизвестная ошибка",
+                message: "Прости, но что-то пошло не так и мне не удалось войти в систему",
+                preferredStyle: .alert
+            )
+            
+            let action = UIAlertAction(title: "Хорошо, попробуем еще раз", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(action)
+            
+            present(alert, animated: true)
+        }
+>>>>>>> db53a05 (problems with commmit):ImageFeed/Auth/AuthViewController.swift
 }
 
 
@@ -53,6 +69,10 @@ extension AuthViewController: WebViewControllerDelegate {
                 oauth2TokenStorage.token = token
                 self.delegate?.didAuthenticate(self)
             case .failure:
+<<<<<<< HEAD:ImageFeed/Views/AuthViewController.swift
+=======
+               
+>>>>>>> db53a05 (problems with commmit):ImageFeed/Auth/AuthViewController.swift
                 self.showAuthErrorAlert()
             }
         }
