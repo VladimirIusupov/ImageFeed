@@ -8,7 +8,7 @@ final class ImagesListCell: UITableViewCell {
     @IBOutlet var cellImage: UIImageView!
     @IBOutlet var likeButton: UIButton!
     @IBOutlet var dateLabel: UILabel!
-    @IBAction func didTapLikeButton(_ sender: Any) {
+    @IBAction private func didTapLikeButton(_ sender: Any) {
         delegate?.cellDidTapLike(self)
     }
     static let reuseIdentifier = "ImagesListCell"

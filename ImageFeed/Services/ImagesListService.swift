@@ -117,5 +117,5 @@ final class ImagesListService {
         lastLoadedPage = nextPage
         return request
     }
-    func deletImagesList() {photos = []}
+    func deleteImagesList() {photos = []}
 }
