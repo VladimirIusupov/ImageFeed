@@ -1,6 +1,7 @@
 import UIKit
 
 final class OAuth2Service {
+    // MARK: - Public Properties
     var authToken: String? {
         get {
             OAuth2TokenStorage().token
@@ -10,6 +11,7 @@ final class OAuth2Service {
         }
     }
     static let shared = OAuth2Service()
+    // MARK: - Private Properties
     private var task: URLSessionTask?
     private var lastCode: String?
     private let decoder = JSONDecoder()
@@ -46,7 +48,7 @@ final class OAuth2Service {
         guard
             let request = makeOAuthTokenRequest(code: code)
         else {
-            print("Request didn't founded or din't created")
+            print("Didn't find makeOAuthTokenRequest")
             handler(.failure(AuthServiceError.invalidRequest))
             return
         }
@@ -60,7 +62,7 @@ final class OAuth2Service {
                 guard let token = data.accessToken
                 else {
                     handler(.failure(AuthServiceError.tokenError))
-                    print("Token not found")
+                    print("Токен не найден")
                     return
                 }
                 handler(.success(token))
@@ -72,7 +74,6 @@ final class OAuth2Service {
         task.resume()
     }
 }
-
 private func makeOAuthTokenRequest(code: String) -> URLRequest? {
     let baseURL = URL(string: "https://unsplash.com")
     guard

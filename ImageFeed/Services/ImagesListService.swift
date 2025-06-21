@@ -103,7 +103,7 @@ final class ImagesListService {
         self.task = task
         task.resume()
     }
-
+    
     private func makeImageListRequest(nextPage: Int) -> URLRequest? {
         guard let url = URL(string: "https://api.unsplash.com/photos" + "?page=\(nextPage)"),
               let token = OAuth2TokenStorage().token
