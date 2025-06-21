@@ -1,6 +1,14 @@
 import UIKit
 import Kingfisher
-final class ProfileViewController: UIViewController {
+
+public protocol ProfileViewControllerProtocol:  AnyObject {
+    var presenter: ProfileViewPresenterProtocol? { get set }
+    func updateAvatar()
+    func switchToSplashViewController()
+}
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
+    var presenter: ProfileViewPresenterProtocol?
     private let avatarImageView = UIImageView()
     private let logoutButton = UIButton()
     private let nameLabel = UILabel()
@@ -13,48 +21,25 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayer()
-        
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ImagesListService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self = self else { return }
-                self.updateAvatar()
-            }
+        presenter?.viewDidLoad()
         updateAvatar()
     }
     
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else {
-            print("makeProfileRequest don't work")
-            return }
+    func updateAvatar() {
+        guard let url = presenter?.didUpdateAvatar() else { return }
+        
         let placeholder = UIImage(named: "avatar") ?? UIImage(systemName: "person.crop.circle.fill")
         let processor = RoundCornerImageProcessor(cornerRadius: 20)
         avatarImageView.kf.setImage(with: url, placeholder: placeholder, options: [.processor(processor)])
     }
-    
-    // MARK: - Action
+
     @objc
     private func didTapLogoutButton() {
         let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
         
         let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
-            self.profileLogoutService.logout()
-            
-            guard let window = UIApplication.shared.windows.first else {
-                assertionFailure("Invalid Configuration")
-                return
-            }
-            let authViewController = UIStoryboard(name: "Main", bundle: .main)
-                .instantiateViewController(withIdentifier: "AuthViewController")
-            window.rootViewController = authViewController
-            
-            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {}, completion: nil)
+            self.presenter?.didLogout()
+            self.switchToSplashViewController()
         }
         
         let noAction = UIAlertAction(title: "Нет", style: .default, handler: nil)
@@ -66,11 +51,8 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-
-// MARK: - Extension
 extension ProfileViewController {
-    
-    // MARK: - Function
+
     func setupLayer() {
         view.backgroundColor = UIColor(named: "YP Black")
         configureAvatarImageView()
@@ -144,6 +126,15 @@ extension ProfileViewController {
             loginNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8)
         ])
     }
+    func switchToSplashViewController() {
+        guard let window = UIApplication.shared.windows.first else {
+            fatalError("Invalid Configuration")
+        }
+        
+        let splashViewController = SplashViewController()
+        window.rootViewController = splashViewController
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {}, completion: nil)
+    }
     
     func configureDescriptionLabel() {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -160,7 +151,3 @@ extension ProfileViewController {
         ])
     }
 }
-
-
-
-

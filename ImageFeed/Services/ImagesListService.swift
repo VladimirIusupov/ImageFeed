@@ -1,5 +1,12 @@
 import Foundation
-final class ImagesListService {
+
+public protocol ImagesListServiceProtocol: AnyObject {
+    func fetchPhotosNextPage()
+    var photos: [Photo] { get }
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+final class ImagesListService: ImagesListServiceProtocol {
     private(set) var photos: [Photo] = []
     private var lastLoadedPage: Int?
     private var task: URLSessionTask?
@@ -15,6 +22,7 @@ final class ImagesListService {
             likePhoto(photoId: photoId, completion: completion)
         }
     }
+    
     func likePhoto(photoId: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let url = URL(string: "https://api.unsplash.com/photos/\(photoId)/like") else {
             return
@@ -63,6 +71,8 @@ final class ImagesListService {
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("[ProfileService]: Ошибка - \(error.localizedDescription)")
@@ -84,11 +94,14 @@ final class ImagesListService {
             return
         }
         task?.cancel()
+        
         let nextPage = (lastLoadedPage ?? 0) + 1
+        
         guard let request = makeImageListRequest(nextPage: nextPage) else {
             print("invalid request in ImagesListService")
             return
         }
+        
         let task = URLSession.shared.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             switch result {
             case .success(let photosResult):
@@ -117,5 +130,7 @@ final class ImagesListService {
         lastLoadedPage = nextPage
         return request
     }
-    func deleteImagesList() {photos = []}
+    func deleteImagesList() {
+        photos = []
+    }
 }
