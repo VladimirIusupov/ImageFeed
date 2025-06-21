@@ -51,6 +51,9 @@
                                                             <fragment content=" "/>
                                                         </attributedString>
                                                     </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="didTapLikeButton:" destination="cn8-gh-kzl" eventType="touchUpInside" id="DhK-Ax-Lqk"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22 августа 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3K-Om-BAN" userLabel="dateLabel">
                                                     <rect key="frame" x="24" y="279" width="102" height="16"/>

@@ -1,6 +1,5 @@
 import UIKit
 import Kingfisher
-import SwiftKeychainWrapper
 final class ProfileViewController: UIViewController {
     private let avatarImageView = UIImageView()
     private let logoutButton = UIButton()
@@ -9,15 +8,15 @@ final class ProfileViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private var profileImageServiceObserver: NSObjectProtocol?
     private var profileService: ProfileService = .shared
-    
-    // MARK: - Lifecycle
+    private let profileLogoutService = ProfileLogoutService.shared
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayer()
-       
+        
         profileImageServiceObserver = NotificationCenter.default
             .addObserver(
-                forName: ProfileImageService.didChangeNotification,
+                forName: ImagesListService.didChangeNotification,
                 object: nil,
                 queue: .main
             ) { [weak self] _ in
@@ -25,35 +24,48 @@ final class ProfileViewController: UIViewController {
                 self.updateAvatar()
             }
         updateAvatar()
-        
     }
+    
     private func updateAvatar() {
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else {
-            print("Could not makeProfileRequest")
-            return
-        }
+            print("makeProfileRequest don't work")
+            return }
         let placeholder = UIImage(named: "avatar") ?? UIImage(systemName: "person.crop.circle.fill")
         let processor = RoundCornerImageProcessor(cornerRadius: 20)
         avatarImageView.kf.setImage(with: url, placeholder: placeholder, options: [.processor(processor)])
-    }
-    private func logout() {
-        KeychainWrapper.standard.removeObject(forKey: "AuthToken")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = storyboard.instantiateViewController(withIdentifier: "AuthViewController")
-        UIApplication.shared.windows.first?.rootViewController = loginVC
-        //TODO: доделать функцию logout, есть проблемы со входом при выходе из профиля
-
     }
     
     // MARK: - Action
     @objc
     private func didTapLogoutButton() {
-        logout()
+        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Да", style: .default) { _ in
+            self.profileLogoutService.logout()
+            
+            guard let window = UIApplication.shared.windows.first else {
+                assertionFailure("Invalid Configuration")
+                return
+            }
+            let authViewController = UIStoryboard(name: "Main", bundle: .main)
+                .instantiateViewController(withIdentifier: "AuthViewController")
+            window.rootViewController = authViewController
+            
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {}, completion: nil)
+        }
+        
+        let noAction = UIAlertAction(title: "Нет", style: .default, handler: nil)
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        present(alert, animated: true, completion: nil)
     }
 }
+
 
 // MARK: - Extension
 extension ProfileViewController {
@@ -69,7 +81,7 @@ extension ProfileViewController {
     }
     
     func configureAvatarImageView() {
-       
+        
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.image = UIImage(named: "avatar") ?? UIImage(systemName: "person.crop.circle.fill")
         let profileIcon = UIImageView()
@@ -87,7 +99,7 @@ extension ProfileViewController {
         ])
     }
     override func viewDidLayoutSubviews() {
-         super.viewDidLayoutSubviews()
+        super.viewDidLayoutSubviews()
         avatarImageView.layer.cornerRadius = avatarImageView.frame.size.width / 2
     }
     func  configureLogoutButton() {

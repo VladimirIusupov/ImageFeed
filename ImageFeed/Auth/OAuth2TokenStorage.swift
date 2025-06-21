@@ -12,9 +12,12 @@ final class OAuth2TokenStorage {
             }
             let isSuccess = KeychainWrapper.standard.set(token,forKey: "AuthToken")
             guard isSuccess else {
-                print ("Error when saving token")
+                print ("AuthToken saving error")
                 return
             }
         }
     }
+    func removeToken() {
+           KeychainWrapper.standard.removeObject(forKey: "Auth token")
+       }
 }

@@ -1,28 +1,50 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
+    var imageURL: URL?
     var image: UIImage? {
         didSet {
-            guard isViewLoaded else { return }
+            guard isViewLoaded, let image
+            else { return }
             imageView.image = image
-            if let image = image {
-                rescaleAndCenterImageInScrollView(image: image)
-            }
+            imageView.frame.size = image.size
+            rescaleAndCenterImageInScrollView(image: image)
         }
     }
-
+    
     @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        guard let image else { return }
-        imageView.image = image
-        imageView.frame.size = image.size
-        rescaleAndCenterImageInScrollView(image: image)
+        
+        if let url = imageURL {
+            UIBlockingProgressHUD.show()
+            let placeholderImage = UIImage(named: "")
+            imageView.image = placeholderImage
+            imageView.contentMode = .center
+            imageView.kf.setImage(
+                with: url,
+                placeholder: placeholderImage,
+                options: nil,
+                progressBlock: nil,
+                completionHandler: { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let value):
+                            UIBlockingProgressHUD.dismiss()
+                            self?.image = value.image
+                        case .failure:
+                            UIBlockingProgressHUD.dismiss()
+                            print("error")
+                        }
+                    }
+                }
+            )
+        }
     }
-
+    
     @IBAction private func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
@@ -70,5 +92,3 @@ extension SingleImageViewController: UIScrollViewDelegate {
         scrollView.contentInsetAdjustmentBehavior = .automatic
     }
 }
-
-
