@@ -8,9 +8,22 @@ final class ProfileService {
     private let decoder = JSONDecoder()
     private var task: URLSessionTask?
     private(set) var profile: Profile?
+    
+    private enum RequestError: Error {
+        case invalidRequest
+        case invalidBaseURL
+        case invalidURLComponents
+        case badRequest
+    }
+    
+    private enum ParsingJSONServiceError: Error {
+        case decodeError
+        case invalidJson
+        case incorrectObject
+    }
 
     private func makeProfileRequest(token: String) -> URLRequest? {
-        guard let baseUrl = URL(string: Constants.defaultBaseURL?.absoluteString ?? "") else {
+        guard let baseUrl = URL(string: Constants.defaultBaseURL!.absoluteString) else {
             preconditionFailure("Invalid base URL \(ErrorsList.RequestError.invalidBaseURL)")
         }
         guard let url = URL(string:
@@ -27,6 +40,7 @@ final class ProfileService {
         
         return request
     }
+    
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
         assert(Thread.isMainThread)
         
@@ -56,7 +70,5 @@ final class ProfileService {
         }
         task.resume()
     }
-    
-    func deleteProfile() {profile = nil}
+    func deleteProfile() { profile = nil }
 }
-

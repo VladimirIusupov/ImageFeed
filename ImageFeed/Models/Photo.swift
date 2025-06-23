@@ -1,6 +1,6 @@
 import Foundation
 
-struct Photo {
+public struct Photo {
     private static let dateFormatter: ISO8601DateFormatter = {
        ISO8601DateFormatter()
     }()
